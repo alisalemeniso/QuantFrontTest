@@ -1,5 +1,7 @@
 # FrontQuant
 
+This is the angular project for the QuantHouse Test
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
 
 ## Development server

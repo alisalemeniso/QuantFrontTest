@@ -1,0 +1,47 @@
+<div class="container container-center">
+  <div class="input_form">
+    <mat-progress-bar mode="determinate" value={{progressValue}}></mat-progress-bar>
+    <form [formGroup]="inputFormGroup">
+      <mat-form-field class="example-chip-list">
+        <mat-label>Veuillez insérer le numéro puis cliquez sur Entrée</mat-label>
+        <mat-chip-list #chipList aria-label="Liste des élements">
+          <mat-chip *ngFor="let element of elements" [selectable]="selectable"
+                    [removable]="removable" (removed)="remove(element)">
+            {{element}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input matInput type="number"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>facteur de la moyenne mobile</mat-label>
+        <input type="number" matInput formControlName="averageNbr" placeholder="Exp: 3">
+        <mat-error *ngIf="inputFormGroup.get('averageNbr').hasError('required')">
+          facteur de la moyenne mobile est <strong>obligatoire</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-stroked-button (click)="reset()">reset</button>
+      <button mat-stroked-button class="float-right" [disabled]="!inputFormGroup.valid" (click)="calculate()">caluler
+      </button>
+    </form>
+
+  </div>
+  <div class="result">
+    <hr>
+    <span *ngIf="biggerNbr">le facteur de la moyenne mobile doit étre inférieur à la longueur de liste</span>
+    <mat-chip-list *ngIf="averageRslt != null" aria-label="average selection">
+      <span>La moyenne mobile est : </span>
+      <mat-chip *ngFor="let rst of averageRslt">
+        {{rst | number }}</mat-chip>
+    </mat-chip-list>
+  </div>
+</div>
+
+
+
+
